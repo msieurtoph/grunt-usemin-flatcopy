@@ -1,0 +1,25 @@
+{
+  "name": "grunt-usemin-flatcopy",
+  "version": "0.1.0",
+  "description": "Via usemin, performs a copy of several files in a single flat folder and refactors their urls",
+  "main": "grunt-usemin-flatcopy.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/msieurtoph/grunt-usemin-flatcopy.git"
+  },
+  "keywords": [
+    "grunt",
+    "usemin",
+    "flat",
+    "copy"
+  ],
+  "author": "msieurtoph <chr.pot@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/msieurtoph/grunt-usemin-flatcopy/issues"
+  },
+  "homepage": "https://github.com/msieurtoph/grunt-usemin-flatcopy"
+}
