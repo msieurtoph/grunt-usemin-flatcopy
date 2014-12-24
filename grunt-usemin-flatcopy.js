@@ -1,11 +1,28 @@
 'use strict';
 
-var _ = require('lodash');
-var path = require('path');
+var _ = require('lodash'),
+    path = require('path'),
+    fs = require('fs'),
+    slash = require('slash')
+;
+
+function createFileObject(file, inDir, outDir, cfgFiles) {
+    var joinedPath = path.join(inDir, file);
+    var joinedPathExists = fs.existsSync(joinedPath);
+    if (joinedPathExists) {
+        var files = {
+            src: [joinedPath],
+            dest: path.join(outDir,path.basename(file))
+        };
+        console.log();
+        cfgFiles.push(files);
+    }
+    // return the source file existence
+    return joinedPathExists;
+}
 
 // exports step and blocReplacement variables,
 // They will be used in the useminPrepare and usemin grunt plugins.
-
 var step = {
     name:'copy',
     createConfig: function (context, block) {
@@ -17,46 +34,37 @@ var step = {
         var outDir = path.join(context.outDir || '', block.dest || '.','/');
         var outFiles = [];
 
-        context.inFiles.forEach(function (f) {
+        if (_.isArray(context.inFiles)) {
+            context.inFiles.forEach(function (f) {
+                if (_.isArray(context.inDir)) {
+                    context.inDir.every(function (d) {
+                        return !createFileObject(f, d, outDir, cfg.files);
+                    });
+                } else {
+                    createFileObject(f, context.inDir, outDir, cfg.files);
+                }
+            });
+        }
 
-            if (_.isArray(context.inDir)) {
-                context.inDir.every(function (d) {
-                    var joinedPath = path.join(d, f);
-                    var joinedPathExists = fs.existsSync(joinedPath);
-                    if (joinedPathExists) {
-                        var files = {
-                            src: [joinedPath],
-                            dest: path.join(outDir,path.basename(f))
-                        };
-                        outFiles.push(files.dest);
-                        cfg.files.push(files);
-                    }
-                    return !joinedPathExists;
-                });
-            } else {
-                var files = {
-                    src: [path.join(context.inDir, f)],
-                    dest: path.join(outDir,path.basename(f))
-                };
-                outFiles.push(files.dest);
-                cfg.files.push(files);
-            }
+        context.outFiles = cfg.files.map(function(f){
+            return f.dest;
         });
 
-        context.outFiles = outFiles;
         return cfg;
-
     }
 };
 
 var blockReplacement = function (block) {
     var clone = _.initial(_.rest(_.cloneDeep(block.raw), block.conditionalStart ? 2 : 1 ), block.conditionalEnd ? 2 : 1 ),
         result = clone.join('\n').trim(),
-        dest;
-    block.src.forEach(function(src){
-        dest = path.join(block.dest, path.basename(src));
-        result = result.replace(src, dest.replace(/\\/g, '/'));
-    });
+        dest
+    ;
+    if (_.isArray(block.src)) {
+        block.src.forEach(function(src){
+            dest = path.join(block.dest, path.basename(src));
+            result = result.replace(src, slash(dest));
+        });
+    }
     return result;
 };
 
