@@ -4,7 +4,7 @@ node_js:
 
 addons:
   code_climate:
-    repo_token: f285f0d182f832ffd5922a9444d19a8f00208443eb2d50ac9beda4163904cb89
+    repo_token: 11fca51d11b3ca896ed1e0000c6cae84e3d43ecb25f57f8e3d4934b470e035f3
 
 before_script:
   - npm install -g codeclimate-test-reporter grunt-cli

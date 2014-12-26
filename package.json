@@ -4,7 +4,7 @@
   "description": "Via usemin, performs a copy of several files in a single flat folder and refactors their urls",
   "main": "grunt-usemin-flatcopy.js",
   "scripts": {
-    "test": "npm test"
+    "test": "grunt test"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,10 @@
     "flat",
     "copy"
   ],
-  "author": "msieurtoph <chr.pot@gmail.com>",
+  "author": {
+    "name": "msieurtoph",
+    "email": "chr.pot@gmail.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/msieurtoph/grunt-usemin-flatcopy/issues"
