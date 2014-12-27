@@ -30,7 +30,7 @@ It turns:
 <script src="another/path/to/my/file4.js"></script>
 <!-- endbuild -->
 ```
-to
+into
 ```html
 <script src="my/unique/path/to/file1.js"></script>
 <script src="my/unique/path/to/file2.js"></script>
@@ -41,39 +41,34 @@ to
 In Gruntfile.js:
 
 ```javascript
+var flatcopy = require('./node_modules/grunt-usemin-flatcopy/grunt-usemin-flatcopy.js');
 
-module.exports = function (grunt) {
-
-  var flatcopy = require('./node_modules/grunt-usemin-flatcopy/grunt-usemin-flatcopy.js');
-
-  grunt.initConfig({
-    useminPrepare: {
-      html: 'path/to/index.html',
-      options: {
-        dest: 'destination/root/path/',
-        flow: {
-          html: {
-            steps: {
-              flatcopyType: [flatcopy.step]
-              // copy the files to the single flat folder:
-              // destination/root/path/my/unique/path/to
-            },
-            // do not remove  `post` property, even if empty
-            post: []
-          }
+grunt.initConfig({
+  useminPrepare: {
+    html: 'path/to/index.html',
+    options: {
+      dest: 'destination/root/path/',
+      flow: {
+        html: {
+          steps: {
+            flatcopyType: [flatcopy.step]
+            // copy the files to the single flat folder:
+            // destination/root/path/my/unique/path/to
+          },
+          // do not remove  `post` property, even if empty
+          post: []
         }
       }
-    },
-
-    usemin: {
-      html: 'path/to/index.html',
-      options: {
-        blockReplacements: {
-            flatcopyType: flatcopy.blockReplacement, // <-- replacements in index.html
-        }}
     }
+  },
 
-  }):
-
-};
+  usemin: {
+    html: 'path/to/index.html',
+    options: {
+      blockReplacements: {
+        flatcopyType: flatcopy.blockReplacement, // <-- replacements in index.html
+      }
+    }
+  }
+});
 ```
