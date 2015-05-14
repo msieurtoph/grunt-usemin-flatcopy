@@ -55,10 +55,20 @@ var step = {
 };
 
 var blockReplacement = function (block) {
-    var clone = _.initial(_.rest(_.cloneDeep(block.raw), block.conditionalStart ? 2 : 1 ), block.conditionalEnd ? 2 : 1 ),
-        result = clone.join('\n').trim(),
+    var clone = _.initial(_.rest(_.cloneDeep(block.raw))),
+        result,
         dest
     ;
+
+    if (block.conditionalStart) {
+        clone = _.rest(clone);
+    }
+    if (block.conditionalEnd) {
+        clone = _.initial(clone);
+    }
+
+    result = clone.join('\n').trim();
+
     if (_.isArray(block.src)) {
         block.src.forEach(function(src){
             dest = path.join(block.dest, path.basename(src));
