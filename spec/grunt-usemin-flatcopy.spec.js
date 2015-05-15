@@ -48,7 +48,6 @@ describe('flat.step.createConfig function', function(){
     it('should return existing files', function(){
         context.inFiles = ['foo', 'bar', 'boo'];
         var cfg = createConfig(context, block);
-
         expect(cfg).toEqual({
             files:[{
                 src: [path.join(originDir, 'foo')],
@@ -61,7 +60,6 @@ describe('flat.step.createConfig function', function(){
                 dest: path.join(destDir, 'boo')
             }]
         });
-
         expect(context.outFiles).toEqual([
             path.join(destDir, 'foo'),
             path.join(destDir, 'bar'),

@@ -14,7 +14,6 @@ function createFileObject(file, inDir, outDir, cfgFiles) {
             src: [joinedPath],
             dest: path.join(outDir,path.basename(file))
         };
-        console.log();
         cfgFiles.push(files);
     }
     // return the source file existence

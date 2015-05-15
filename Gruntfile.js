@@ -34,7 +34,7 @@ module.exports = function (grunt) {
         ],
         tasks: [
           'newer:jshint:all',
-          'jasmine_node'
+          'jasmine_nodejs'
         ],
       }
     },
@@ -50,6 +50,14 @@ module.exports = function (grunt) {
           lines:100
         }
       }
+    },
+
+    'jasmine_nodejs': {
+      all: {
+        specs: [
+          'spec/**'
+        ]
+      }
     }
 
   });
@@ -60,7 +68,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('test', [
-    'jasmine_node'
+    'jasmine_nodejs'
   ]);
 
 
