@@ -1,6 +1,7 @@
 grunt-usemin-flatcopy
 ======================
 
+[![npm version](https://badge.fury.io/js/grunt-usemin-flatcopy.svg)](http://badge.fury.io/js/grunt-usemin-flatcopy)
 [![Build Status](http://img.shields.io/travis/msieurtoph/grunt-usemin-flatcopy.svg)](https://travis-ci.org/msieurtoph/grunt-usemin-flatcopy) [![Code Climate](https://codeclimate.com/github/msieurtoph/grunt-usemin-flatcopy/badges/gpa.svg)](https://codeclimate.com/github/msieurtoph/grunt-usemin-flatcopy) [![Test Coverage](https://codeclimate.com/github/msieurtoph/grunt-usemin-flatcopy/badges/coverage.svg)](https://codeclimate.com/github/msieurtoph/grunt-usemin-flatcopy)
 
 [![dependency Status](http://img.shields.io/david/msieurtoph/grunt-usemin-flatcopy.svg?style=flat)](https://david-dm.org/msieurtoph/grunt-usemin-flatcopy#info=dependencies) [![devDependency Status](http://img.shields.io/david/dev/msieurtoph/grunt-usemin-flatcopy.svg?style=flat)](https://david-dm.org/msieurtoph/grunt-usemin-flatcopy#info=devDependencies)
