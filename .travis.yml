@@ -2,10 +2,6 @@ language: node_js
 node_js:
   - '0.10'
 
-addons:
-  code_climate:
-    repo_token: 11fca51d11b3ca896ed1e0000c6cae84e3d43ecb25f57f8e3d4934b470e035f3
-
 before_script:
   - npm install -g codeclimate-test-reporter grunt-cli
 

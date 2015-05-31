@@ -19,8 +19,7 @@ module.exports = function (grunt) {
         reporter: require('jshint-stylish')
       },
       all: [
-        'Gruntfile.js',
-        'grunt-usemin-flatcopy.js',
+        '*.js',
         'spec/**/*.js'
       ]
     },
@@ -30,45 +29,43 @@ module.exports = function (grunt) {
         files: [
           'Gruntfile.js',
           'grunt-usemin-flatcopy.js',
-          'spec/**/*.spec.js'
+          'spec/grunt-usemin-flatcopy.spec.js'
         ],
         tasks: [
-          'newer:jshint:all',
-          'jasmine_nodejs'
+          'test'
         ],
       }
     },
 
     'jasmine_node': {
-      all: ['spec/'],
-      coverage: {
-        options : {
-          failTask: false,
-          branches : 100 ,
-          functions: 100,
-          statements:100,
-          lines:100
-        }
-      }
-    },
-
-    'jasmine_nodejs': {
       all: {
-        specs: [
-          'spec/**'
-        ]
+        options: {
+          showColors: true,
+          useHelpers: true,
+          coverage: {
+            report: ['lcov'],
+          },
+          forceExit: true,
+          match: '.',
+          matchAll: false,
+          specFolders: ['spec'],
+          extensions: 'js',
+          specNameMatcher: 'spec',
+          captureExceptions: true,
+        },
+        src: ['grunt-usemin-flatcopy.js']
       }
     }
 
   });
 
   grunt.registerTask('default', [
-    'jshint:all',
     'test'
   ]);
 
   grunt.registerTask('test', [
-    'jasmine_nodejs'
+    'jshint:all',
+    'jasmine_node',
   ]);
 
 

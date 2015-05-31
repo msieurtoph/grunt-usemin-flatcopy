@@ -67,6 +67,20 @@ describe('flat.step.createConfig function', function(){
         ]);
     });
 
+    it('should use default destination', function(){
+        context.inFiles = ['foo'];
+        var cfg = createConfig(context, {});
+        expect(cfg).toEqual({
+            files:[{
+                src: [path.join(originDir, 'foo')],
+                dest: path.join('.', 'foo')
+            }]
+        });
+        expect(context.outFiles).toEqual([
+            path.join('.', 'foo'),
+        ]);
+    });
+
     it('should not return invalid files', function(){
         context.inFiles = ['invalid', 'foo', 'invalid_too'];
         var cfg = createConfig(context, block);
@@ -81,7 +95,7 @@ describe('flat.step.createConfig function', function(){
         ]);
     });
 
-    it('should return existing files', function(){
+    it('should return only existing inDir paths', function(){
         context.inFiles = ['foo'];
         context.inDir = [
             path.join(cwd, 'invalid/path'),
@@ -131,6 +145,19 @@ describe('flat.blockReplacement function', function(){
             conditionalStart: false,
             conditionalEnd: false
         };
+    });
+
+    it('should not do anything if src is not an array', function(){
+        block.raw.unshift(buildStartLine);
+        block.raw.push(buildEndLine);
+        block.src = 'foo';
+        var result = blockReplacement(block);
+        expect(result).toBe([
+            '<script src="' + path.join(originDir, 'foo/bar') + '"></script>',
+            '<script src="' + path.join(originDir, 'baz/foo') + '"></script>',
+            '<script src="unmatched/file"></script>',
+            '<script src="' + path.join(originDir, 'bar/baz') + '"></script>'
+        ].join('\n'));
     });
 
     it('should replace src in <script> tags', function(){
