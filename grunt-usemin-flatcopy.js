@@ -6,25 +6,12 @@ var _ = require('lodash'),
     slash = require('slash')
 ;
 
-function createFileObject(file, inDir, outDir, cfgFiles) {
-    var joinedPath = path.join(inDir, file);
-    var joinedPathExists = fs.existsSync(joinedPath);
-    if (joinedPathExists) {
-        var files = {
-            src: [joinedPath],
-            dest: path.join(outDir,path.basename(file))
-        };
-        cfgFiles.push(files);
-    }
-    // return the source file existence
-    return joinedPathExists;
-}
-
 // exports step and blocReplacement variables,
 // They will be used in the useminPrepare and usemin grunt plugins.
 var step = {
     name:'copy',
     createConfig: function (context, block) {
+
         var cfg = {
             files: []
         };
@@ -37,10 +24,23 @@ var step = {
             context.inFiles.forEach(function (f) {
                 if (_.isArray(context.inDir)) {
                     context.inDir.every(function (d) {
-                        return !createFileObject(f, d, outDir, cfg.files);
+                        var joinedPath = path.join(d, f);
+                        var joinedPathExists = fs.existsSync(joinedPath);
+                        if (joinedPathExists) {
+                            var files = {
+                                src: [joinedPath],
+                                dest: path.join(outDir,path.basename(f))
+                            };
+                            cfg.files.push(files);
+                        }
+                        // return the source file existence
+                        return !joinedPathExists;
                     });
                 } else {
-                    createFileObject(f, context.inDir, outDir, cfg.files);
+                    cfg.files.push({
+                        src: path.join(context.inDir, f),
+                        dest: path.join(outDir,path.basename(f))
+                    });
                 }
             });
         }
