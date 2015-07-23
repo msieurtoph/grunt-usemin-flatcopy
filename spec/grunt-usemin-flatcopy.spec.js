@@ -45,8 +45,8 @@ describe('flat.step.createConfig function', function(){
         expect(context.outFiles).toEqual([]);
     });
 
-    it('should return existing files', function(){
-        context.inFiles = ['foo', 'bar', 'boo'];
+    it('should return files when inDir is a string', function(){
+        context.inFiles = ['foo', 'bar', 'baz'];
         var cfg = createConfig(context, block);
         expect(cfg).toEqual({
             files:[{
@@ -56,14 +56,14 @@ describe('flat.step.createConfig function', function(){
                 src: [path.join(originDir, 'bar')],
                 dest: path.join(destDir, 'bar')
             },{
-                src: [path.join(originDir, 'boo')],
-                dest: path.join(destDir, 'boo')
+                src: [path.join(originDir, 'baz')],
+                dest: path.join(destDir, 'baz')
             }]
         });
         expect(context.outFiles).toEqual([
             path.join(destDir, 'foo'),
             path.join(destDir, 'bar'),
-            path.join(destDir, 'boo')
+            path.join(destDir, 'baz')
         ]);
     });
 
@@ -78,20 +78,6 @@ describe('flat.step.createConfig function', function(){
         });
         expect(context.outFiles).toEqual([
             path.join('.', 'foo'),
-        ]);
-    });
-
-    it('should not return invalid files', function(){
-        context.inFiles = ['invalid', 'foo', 'invalid_too'];
-        var cfg = createConfig(context, block);
-
-        expect(cfg).toEqual({files:[{
-            src: [path.join(originDir, 'foo')],
-            dest: path.join(destDir, 'foo')
-        }]});
-
-        expect(context.outFiles).toEqual([
-            path.join(destDir, 'foo')
         ]);
     });
 

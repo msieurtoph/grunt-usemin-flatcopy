@@ -38,7 +38,7 @@ var step = {
                     });
                 } else {
                     cfg.files.push({
-                        src: path.join(context.inDir, f),
+                        src: [path.join(context.inDir, f)],
                         dest: path.join(outDir,path.basename(f))
                     });
                 }

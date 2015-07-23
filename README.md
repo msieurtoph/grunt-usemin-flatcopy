@@ -11,8 +11,12 @@ Export step and blockReplacement for usemin usage, to perform a copy of several 
 ## Getting Started
 If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide, as it explains how to create a [gruntfile][Getting Started] as well as install and use grunt plugins, especially [grunt-usemin][]. Once you're familiar with that process, install this plugin with this command:
 
+This plugin uses the step `grunt-contrib-copy` for grunt-usemin and need it to be installed.
+
 ```shell
-npm install grunt-usemin-flatcopy --save-dev
+npm i grunt-usemin --save-dev
+npm i grunt-contrib-copy --save-dev
+npm i grunt-usemin-flatcopy --save-dev
 ```
 
 [grunt]: http://gruntjs.com/
@@ -42,6 +46,10 @@ into
 In Gruntfile.js:
 
 ```javascript
+
+grunt.loadNpmTasks('grunt-usemin');
+grunt.loadNpmTasks('grunt-contrib-copy');
+
 var flatcopy = require('./node_modules/grunt-usemin-flatcopy/grunt-usemin-flatcopy.js');
 
 grunt.initConfig({
@@ -55,6 +63,9 @@ grunt.initConfig({
             flatcopyType: [flatcopy.step]
             // copy the files to the single flat folder:
             // destination/root/path/my/unique/path/to
+            // (instead of 'flatcopyType', you can use any label you want.
+            //  Make sure to report it into the tag :
+            //  <!-- build:flatcopyType my/unique/path/to -->)
           },
           // do not remove  `post` property, even if empty
           post: []
@@ -72,4 +83,20 @@ grunt.initConfig({
     }
   }
 });
+```
+
+It supports following syntaxes:
+
+```
+<!-- build:<type> <path> -->
+... HTML Markup, list of script / link tags.
+<!-- endbuild -->
+```
+
+```
+<!-- build:<type>(<alternative_source_path>) <path> -->
+... HTML Markup, list of script / link tags.
+<!-- endbuild -->
+// <alternative_source_path> could be a simple path (containing ** or * )
+// or even a group of them like '{<path1>,<path2>}'
 ```
