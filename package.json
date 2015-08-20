@@ -1,6 +1,6 @@
 {
   "name": "grunt-usemin-flatcopy",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Via usemin, performs a copy of several files in a single flat folder and refactors their urls",
   "main": "grunt-usemin-flatcopy.js",
   "scripts": {
